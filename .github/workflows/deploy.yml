@@ -20,3 +20,13 @@ jobs:
 
     - name: Push Docker Image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/erp-backend-new
+      - name: Deploy to EC2
+  uses: appleboy/ssh-action@v1.0.3
+  with:
+    host: ${{ secrets.EC2_HOST }}
+    username: ubuntu
+    key: ${{ secrets.EC2_KEY }}
+    script: |
+      docker pull ${{ secrets.DOCKER_USERNAME }}/erp-backend-new:latest
+      docker rm -f erp || true
+      docker run -d -p 80:5000 --name erp ${{ secrets.DOCKER_USERNAME }}/erp-backend-new
