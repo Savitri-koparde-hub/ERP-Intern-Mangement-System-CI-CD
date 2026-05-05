@@ -5,28 +5,29 @@ on:
     branches: ["main"]
 
 jobs:
-  build-and-push:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Login to Docker Hub
-      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-    - name: Build Docker Image
-      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/erp-backend-new .
+      - name: Build Docker Image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/erp-backend-new .
 
-    - name: Push Docker Image
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/erp-backend-new
+      - name: Push Docker Image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/erp-backend-new
+
       - name: Deploy to EC2
-  uses: appleboy/ssh-action@v1.0.3
-  with:
-    host: ${{ secrets.EC2_HOST }}
-    username: ubuntu
-    key: ${{ secrets.EC2_KEY }}
-    script: |
-      docker pull ${{ secrets.DOCKER_USERNAME }}/erp-backend-new:latest
-      docker rm -f erp || true
-      docker run -d -p 80:5000 --name erp ${{ secrets.DOCKER_USERNAME }}/erp-backend-new
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKER_USERNAME }}/erp-backend-new:latest
+            docker rm -f erp || true
+            docker run -d -p 80:5000 --name erp ${{ secrets.DOCKER_USERNAME }}/erp-backend-new
