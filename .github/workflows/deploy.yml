@@ -2,12 +2,14 @@ name: CI/CD Pipeline
 
 on:
 push:
-branches: ["main"]
+branches:
+- main
 
 jobs:
 build-and-deploy:
 runs-on: ubuntu-latest
 
+```
 steps:
   - name: Checkout Code
     uses: actions/checkout@v3
@@ -29,13 +31,7 @@ steps:
       key: ${{ secrets.EC2_KEY }}
       script: |
         cd /home/ubuntu
-
-        # Stop and remove old container if exists
         docker rm -f erp || true
-
-        # Pull latest image
         docker pull ${{ secrets.DOCKER_USERNAME }}/erp-backend-new:latest
-
-        # Run new container
         docker run -d -p 80:5000 --restart always --name erp ${{ secrets.DOCKER_USERNAME }}/erp-backend-new:latest
-
+```
