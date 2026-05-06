@@ -9,7 +9,6 @@ jobs:
 build-and-deploy:
 runs-on: ubuntu-latest
 
-```
 steps:
   - name: Checkout Code
     uses: actions/checkout@v3
@@ -34,4 +33,4 @@ steps:
         docker rm -f erp || true
         docker pull ${{ secrets.DOCKER_USERNAME }}/erp-backend-new:latest
         docker run -d -p 80:5000 --restart always --name erp ${{ secrets.DOCKER_USERNAME }}/erp-backend-new:latest
-```
+
