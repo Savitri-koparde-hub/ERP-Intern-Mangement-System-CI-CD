@@ -1,3 +1,4 @@
+```html id="6gk2ty"
 {% extends "intern/base.html" %}
 {% block title %}Documents{% endblock %}
 
@@ -13,6 +14,7 @@
     transition: 0.3s;
     margin-bottom: 2rem;
   }
+
   .upload-zone:hover {
     border-color: var(--primary);
     background: rgba(99, 102, 241, 0.05);
@@ -43,6 +45,7 @@
     font-size: 0.8rem;
     font-weight: 600;
     text-decoration: none;
+    border: none;
   }
 
   .view-btn {
@@ -60,46 +63,108 @@
 {% endblock %}
 
 {% block content %}
+
 <div class="glass-panel" style="padding: 2rem; border-radius: 20px">
 
-  <h2 style="margin-bottom: 1.5rem; font-weight: 700">Document Repository</h2>
+  <h2 style="margin-bottom: 1.5rem; font-weight: 700">
+    Document Repository
+  </h2>
 
-  <!-- Upload -->
-  <form action="{{ url_for('intern_documents') }}" method="POST" enctype="multipart/form-data">
+  <!-- Upload Form -->
+  <form action="{{ url_for('intern_documents') }}"
+        method="POST"
+        enctype="multipart/form-data">
 
-    <div class="upload-zone" onclick="document.getElementById('file-input').click()">
-      <input type="file" name="file_data" id="file-input" style="display:none" onchange="handleFile(this)">
+    <!-- Upload Area -->
+    <div class="upload-zone"
+         onclick="document.getElementById('file-input').click()">
 
-      <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--text-muted); margin-bottom: 1rem"></i>
+      <input type="file"
+             name="file_data"
+             id="file-input"
+             accept=".pdf,.png,.jpg,.jpeg"
+             required
+             style="display:none"
+             onchange="handleFile(this)">
 
-      <h4 style="color: var(--text-main)">Click to Upload Document</h4>
-      <p style="color: var(--text-muted)">PDF, JPG, PNG (Max 10MB)</p>
+      <i class="fas fa-cloud-upload-alt"
+         style="font-size: 3rem;
+                color: var(--text-muted);
+                margin-bottom: 1rem">
+      </i>
 
-      <div id="file-name" style="margin-top: 1rem; color: var(--primary); font-weight: 700"></div>
+      <h4 style="color: var(--text-main)">
+        Click to Upload Document
+      </h4>
+
+      <p style="color: var(--text-muted)">
+        PDF, JPG, PNG (Max 10MB)
+      </p>
+
+      <div id="file-name"
+           style="margin-top: 1rem;
+                  color: var(--primary);
+                  font-weight: 700">
+      </div>
+
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 1rem; margin-bottom: 2rem;">
-      <select name="document_type" required style="padding: 12px; border-radius: 10px; background: rgba(0,0,0,0.3); color: white;">
+    <!-- Form Fields -->
+    <div style="display: grid;
+                grid-template-columns: 1fr 1fr auto;
+                gap: 1rem;
+                margin-bottom: 2rem;">
+
+      <!-- Document Type -->
+      <select name="document_type"
+              required
+              style="padding: 12px;
+                     border-radius: 10px;
+                     background: rgba(0,0,0,0.3);
+                     color: white;">
+
         <option value="">Select Type</option>
         <option value="ID_PROOF">ID Proof</option>
         <option value="RESUME">Resume</option>
         <option value="CERTIFICATE">Certificate</option>
+
       </select>
 
-      <input type="text" name="document_name" placeholder="Document Name" required
-             style="padding: 12px; border-radius: 10px; background: rgba(0,0,0,0.3); color: white;">
+      <!-- Document Name -->
+      <input type="text"
+             name="document_name"
+             placeholder="Document Name"
+             required
+             style="padding: 12px;
+                    border-radius: 10px;
+                    background: rgba(0,0,0,0.3);
+                    color: white;">
 
+      <!-- Upload Button -->
       <button type="submit"
-              style="padding: 12px 24px; background: var(--primary); color: white; border-radius: 10px; font-weight: 700;">
+              style="padding: 12px 24px;
+                     background: var(--primary);
+                     color: white;
+                     border-radius: 10px;
+                     font-weight: 700;
+                     border:none;">
+
         Upload
+
       </button>
+
     </div>
+
   </form>
 
-  <!-- Table -->
-  <h3 style="border-bottom: 1px solid var(--glass-border); padding-bottom: 10px;">Upload History</h3>
+  <!-- Upload History -->
+  <h3 style="border-bottom: 1px solid var(--glass-border);
+             padding-bottom: 10px;">
+    Upload History
+  </h3>
 
   <table class="doc-table">
+
     <thead>
       <tr>
         <th>Document</th>
@@ -110,80 +175,197 @@
     </thead>
 
     <tbody>
+
       {% for doc in documents %}
+
       <tr>
+
+        <!-- Document -->
         <td>
-          <div style="display:flex; align-items:center; gap:10px;">
-            <i class="fas fa-file-alt" style="color: var(--primary)"></i>
+          <div style="display:flex;
+                      align-items:center;
+                      gap:10px;">
+
+            <i class="fas fa-file-alt"
+               style="color: var(--primary)">
+            </i>
+
             {{ doc.document_name }}
+
           </div>
         </td>
 
-        <td>{{ doc.document_type }}</td>
-
-        <td>{{ doc.uploaded_at }}</td>
-
+        <!-- Type -->
         <td>
-          <div style="display:flex; gap:10px; align-items:center;">
+          {{ doc.document_type }}
+        </td>
 
-            <!-- VIEW -->
+        <!-- Date -->
+        <td>
+          {{ doc.uploaded_at }}
+        </td>
+
+        <!-- Actions -->
+        <td>
+
+          <div style="display:flex;
+                      gap:10px;
+                      align-items:center;">
+
+            <!-- View -->
             {% if doc.file_url %}
+
             <a href="{{ url_for('serve_file', filename=doc.file_url) }}"
                target="_blank"
                class="action-btn view-btn">
+
               View
+
             </a>
+
             {% else %}
-            <span style="color: var(--text-muted); font-size: 0.85rem;">No File</span>
+
+            <span style="color: var(--text-muted);
+                         font-size: 0.85rem;">
+
+              No File
+
+            </span>
+
             {% endif %}
 
-            <!-- DELETE -->
-            <form action="{{ url_for('delete_intern_document', doc_id=doc.id) }}" method="POST" style="margin:0;">
+            <!-- Delete -->
+            <form action="{{ url_for('delete_intern_document', doc_id=doc.id) }}"
+                  method="POST"
+                  style="margin:0;">
+
               <button type="submit"
                       onclick="return confirm('Delete this document?')"
                       class="action-btn delete-btn">
+
                 Delete
+
               </button>
+
             </form>
 
           </div>
+
         </td>
+
       </tr>
 
       {% else %}
+
       <tr>
-        <td colspan="4" style="text-align:center; padding:2rem;">
+
+        <td colspan="4"
+            style="text-align:center;
+                   padding:2rem;">
+
           No documents uploaded
+
         </td>
+
       </tr>
+
       {% endfor %}
+
     </tbody>
+
   </table>
 
 </div>
 
+<!-- JavaScript Validation -->
 <script>
-function handleFile(input) {
-  if (input.files.length > 0) {
-    document.getElementById("file-name").innerText =
-      "Selected: " + input.files[0].name;
 
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      let hidden = document.getElementById("b64-input");
-      if (!hidden) {
-        hidden = document.createElement("input");
-        hidden.type = "hidden";
-        hidden.name = "file_data";
-        hidden.id = "b64-input";
-        input.form.appendChild(hidden);
-        input.name = "";
-      }
-      hidden.value = e.target.result;
-    };
-    reader.readAsDataURL(input.files[0]);
+function handleFile(input) {
+
+  const fileName = document.getElementById("file-name");
+
+  if (input.files.length > 0) {
+
+    const file = input.files[0];
+
+    // Allowed file types
+    const allowedTypes = [
+      "application/pdf",
+      "image/png",
+      "image/jpeg",
+      "image/jpg"
+    ];
+
+    // Max size = 10MB
+    const maxSize = 10 * 1024 * 1024;
+
+    // Validate file type
+    if (!allowedTypes.includes(file.type)) {
+
+      alert("Only PDF, JPG, JPEG, and PNG files are allowed.");
+
+      input.value = "";
+      fileName.innerText = "";
+
+      return;
+    }
+
+    // Validate file size
+    if (file.size > maxSize) {
+
+      alert("File size must be less than 10 MB.");
+
+      input.value = "";
+      fileName.innerText = "";
+
+      return;
+    }
+
+    // Show filename
+    fileName.innerText = "Selected: " + file.name;
   }
 }
+
+// Form validation
+document.querySelector("form").addEventListener("submit", function(e) {
+
+  const fileInput = document.getElementById("file-input");
+  const docType = document.querySelector('select[name="document_type"]');
+  const docName = document.querySelector('input[name="document_name"]');
+
+  // File validation
+  if (!fileInput.files.length) {
+
+    alert("Please select a file before uploading.");
+
+    e.preventDefault();
+
+    return;
+  }
+
+  // Document type validation
+  if (docType.value.trim() === "") {
+
+    alert("Please select document type.");
+
+    e.preventDefault();
+
+    return;
+  }
+
+  // Document name validation
+  if (docName.value.trim() === "") {
+
+    alert("Please enter document name.");
+
+    e.preventDefault();
+
+    return;
+  }
+
+});
+
 </script>
 
 {% endblock %}
+```
