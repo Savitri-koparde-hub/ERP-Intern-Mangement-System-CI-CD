@@ -3,7 +3,6 @@
 {% block page_title %}Documents{% endblock %}
 
 {% block content %}
-
 <div class="card">
   <div class="table-container">
     <table>
@@ -17,74 +16,69 @@
         </tr>
       </thead>
 
-```
-  <tbody>
-    {% for doc in documents %}
-    <tr>
-      <td>
-        <div style="display: flex; align-items: center; gap: 10px">
-          <img
-            src="{{ url_for('static', filename='uploads/profiles/' + doc.photo_url) if doc.photo_url else 'https://ui-avatars.com/api/?name=' + doc.full_name }}"
-            style="width: 32px; height: 32px; border-radius: 50%"
-          />
-          <div>
-            <div style="font-weight: 600">{{ doc.full_name }}</div>
-            <div style="font-size: 0.75rem; color: var(--text-light)">
-              {{ doc.intern_id }}
+      <tbody>
+        {% for doc in documents %}
+        <tr>
+          <td>
+            <div style="display: flex; align-items: center; gap: 10px">
+              <img
+                src="{{ url_for('static', filename='uploads/profiles/' + doc.photo_url) if doc.photo_url else 'https://ui-avatars.com/api/?name=' + doc.full_name }}"
+                style="width: 32px; height: 32px; border-radius: 50%"
+              />
+              <div>
+                <div style="font-weight: 600">{{ doc.full_name }}</div>
+                <div style="font-size: 0.75rem; color: var(--text-light)">
+                  {{ doc.intern_id }}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </td>
+          </td>
 
-      <td>
-        <span class="badge badge-neutral">{{ doc.document_type }}</span>
-      </td>
+          <td>
+            <span class="badge badge-neutral">{{ doc.document_type }}</span>
+          </td>
 
-      <td>
-        <div style="font-weight: 500">
-          {{ doc.admin_comment or '-' }}
-        </div>
-        <div style="font-size: 0.75rem; color: var(--text-light)">
-          {{ doc.file_url or 'No file uploaded' }}
-        </div>
-      </td>
+          <td>
+            <div style="font-weight: 500">{{ doc.admin_comment or '-' }}</div>
+            <div style="font-size: 0.75rem; color: var(--text-light)">
+              {{ doc.file_url or 'No file uploaded' }}
+            </div>
+          </td>
 
-      <td>{{ doc.uploaded_at }}</td>
+          <td>{{ doc.uploaded_at }}</td>
 
-      <!-- ✅ FIXED ACTIONS SECTION -->
-      <td>
-        <div style="display: flex; gap: 8px">
-          {% if doc.file_url %}
-            <a href="{{ url_for('serve_file', filename=doc.file_url) }}"
-               target="_blank"
-               class="btn btn-outline">
-              View
-            </a>
+          <td>
+            <div style="display: flex; gap: 8px">
+              {% if doc.file_url %}
+              <a href="{{ url_for('serve_file', filename=doc.file_url) }}"
+                 target="_blank"
+                 class="btn btn-outline">
+                View
+              </a>
 
-            <a href="{{ url_for('serve_file', filename=doc.file_url) }}"
-               download
-               class="btn btn-primary">
-              Download
-            </a>
-          {% else %}
-            <span style="color: gray;">No File</span>
-          {% endif %}
-        </div>
-      </td>
+              <a href="{{ url_for('serve_file', filename=doc.file_url) }}"
+                 download
+                 class="btn btn-primary">
+                Download
+              </a>
+              {% else %}
+              <span style="color: var(--text-light); font-size: 0.85rem;">
+                No File
+              </span>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
 
-    </tr>
-
-    {% else %}
-    <tr>
-      <td colspan="5" style="text-align: center; padding: 3rem; color: var(--text-light)">
-        No documents found.
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-```
-
+        {% else %}
+        <tr>
+          <td colspan="5" style="text-align: center; padding: 3rem; color: var(--text-light)">
+            No documents found.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
 {% endblock %}
