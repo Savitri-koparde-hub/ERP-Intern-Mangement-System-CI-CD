@@ -1,155 +1,264 @@
+# ERP Intern Management System with DevOps Implementation
 
-# ERP Portal – DevOps Project
-
-A comprehensive ERP system for efficient **intern and employee management** built using **Flask and DevOps practices**.
-
-![Python](https://img.shields.io/badge/Python-3.11-blue)
-![Flask](https://img.shields.io/badge/Flask-Backend-black)
-![GitHub](https://img.shields.io/badge/GitHub-VersionControl-orange)
-![CI/CD](https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-blue)
-![Docker](https://img.shields.io/badge/Docker-Container-blue)
-![Kubernetes](https://img.shields.io/badge/Kubernetes-Orchestration-blue)
-CICD UPDATED
+> A complete ERP Intern Management System integrated with modern DevOps practices including CI/CD, Docker, AWS Cloud deployment, Infrastructure Monitoring, and Automated Deployment.
 
 ---
 
-# Table of Contents
+# Project Overview
 
-* [Overview](#overview)
-* [Features](#features)
-* [Technology Stack](#technology-stack)
-* [DevOps Pipeline](#devops-pipeline)
-* [Installation](#installation)
-* [Running the Application](#running-the-application)
-* [Project Structure](#project-structure)
-* [Future Improvements](#future-improvements)
+This project is a web-based ERP Intern Management System developed using Flask and SQLite. The application simplifies intern management by providing modules for registration, attendance tracking, task management, document verification, and role-based dashboards for administrators and interns.
 
----
-
-# Overview
-
-The ERP Portal is designed to manage interns and employees efficiently within an organization.
-
-The system provides functionalities such as:
-
-* Intern management
-* Attendance tracking
-* Task assignment and monitoring
-* Certificate generation
-* Messaging system
-
-This project also demonstrates **DevOps practices** including:
-
-* Version control using Git & GitHub
-* Continuous Integration using GitHub Actions
-* Containerization using Docker
-* Deployment using Kubernetes
+To make the application production-ready, a complete DevOps workflow was implemented. The project demonstrates Continuous Integration, Continuous Deployment (CI/CD), containerization, cloud deployment, infrastructure monitoring, and automated application delivery.
 
 ---
 
 # Features
 
-* Intern Management System
-* Attendance Tracking
-* Task Management
-* Messaging System
-* Certificate Generation
-* Admin Dashboard
-* Submission Management
+### ERP Features
+
+- Secure User Authentication
+- Admin Dashboard
+- Intern Dashboard
+- Attendance Management
+- Task Assignment
+- Document Upload & Verification
+- Role-Based Access Control
+- SQLite Database
 
 ---
 
-# Technology Stack
+### DevOps Features
 
-### Backend
-
-* Python
-* Flask
-
-### Frontend
-
-* HTML
-* CSS
-* JavaScript
-
-### DevOps Tools
-
-* Git
-* GitHub
-* GitHub Actions (CI/CD)
-* Docker
-* Kubernetes
+- Git Version Control
+- GitHub Repository
+- GitHub Actions CI/CD
+- Docker Containerization
+- Docker Hub Integration
+- AWS EC2 Deployment
+- Elastic IP Configuration
+- Security Group Configuration
+- Prometheus Monitoring
+- Grafana Dashboards
+- Node Exporter Metrics
+- Docker Restart Policy
+- Infrastructure Monitoring
 
 ---
 
-# DevOps Pipeline
+# Tech Stack
 
-Developer pushes code → GitHub Repository → GitHub Actions CI Pipeline → Docker Containerization → Kubernetes Deployment
-
-Whenever code is pushed to the repository, **GitHub Actions automatically runs the CI pipeline to validate the application**.
-
----
-
-# Installation
-
-Clone the repository:
-
-```
-git clone https://github.com/sakshis14/erp-portal.git
-```
-
-Navigate into the project directory:
-
-```
-cd erp-portal
-```
-
-Install dependencies:
-
-```
-pip install -r req.txt
-```
+| Category | Technologies |
+|-----------|-------------|
+| Backend | Python, Flask |
+| Frontend | HTML, CSS, JavaScript |
+| Database | SQLite |
+| Version Control | Git, GitHub |
+| CI/CD | GitHub Actions |
+| Containerization | Docker, Docker Compose |
+| Registry | Docker Hub |
+| Cloud | AWS EC2 |
+| Monitoring | Prometheus, Grafana, Node Exporter |
 
 ---
 
-# Running the Application
 
-Run the Flask application:
+# 🔄 DevOps Workflow
 
-```
-python app.py
-```
+Developer
 
-Open in browser:
+↓
 
-```
-http://localhost:5000
+GitHub Repository
+
+↓
+
+GitHub Actions
+
+↓
+
+Docker Build
+
+↓
+
+Docker Hub
+
+↓
+
+AWS EC2
+
+↓
+
+ERP Application
+
+↓
+
+Prometheus
+
+↓
+
+Grafana Dashboard
+
+---
+
+![CI/CD Flow](screenshots/cicd-flow.png)
+
+---
+
+# 📷 Application Screenshot
+
+## Home Page
+
+![Home](screenshots/home.png)
+
+---
+
+# ⚙️ CI/CD Pipeline
+
+Whenever code is pushed to GitHub:
+
+- GitHub Actions automatically starts
+- Docker image is built
+- Image is pushed to Docker Hub
+- EC2 server pulls latest image
+- Old container is removed
+- New container starts automatically
+
+---
+
+## GitHub Actions
+
+![GitHub Actions](screenshots/github-actions.png)
+
+---
+
+# 🐳 Docker Implementation
+
+The application is containerized using Docker.
+
+Services:
+
+- ERP Application
+- Prometheus
+- Grafana
+- Node Exporter
+
+---
+
+## Docker Containers
+
+![Docker](screenshots/docker-ps.png)
+
+---
+
+## Docker Hub
+
+![DockerHub](screenshots/dockerhub.png)
+
+---
+
+# ☁️ AWS Deployment
+
+The application is hosted on AWS EC2 Ubuntu Server.
+
+Infrastructure includes:
+
+- EC2 Instance
+- Elastic IP
+- Security Groups
+- Docker Deployment
+
+---
+
+## EC2
+
+![EC2](screenshots/ec2.png)
+
+---
+
+## Elastic IP
+
+![ElasticIP](screenshots/elastic-ip.png)
+
+---
+
+## Security Group
+
+![Security Group](screenshots/security-group.png)
+
+---
+
+# 📊 Monitoring
+
+Prometheus collects infrastructure metrics.
+
+Node Exporter exposes system metrics.
+
+Grafana visualizes them through dashboards.
+
+---
+
+## Grafana Dashboard
+
+![Grafana](screenshots/grafana-dashboard.png)
+
+---
+
+## Prometheus Targets
+
+![Prometheus](screenshots/prometheus-targets.png)
+![Uploading image.png…]()
+
+---
+
+# 🚨 Alerting
+
+Grafana alert rules were configured for:
+
+- High CPU Usage
+- High Memory Usage
+- High Disk Usage
+
+Alerts help administrators identify infrastructure issues before they affect application availability.
+
+---
+
 ```
 
 ---
 
-# Project Structure
+---
 
-ERP-Portal
-│
-├── app.py
-├── req.txt
-├── Dockerfile
-├── README.md
-├── .gitignore
-│
-├── static/
-├── templates/
-│
-├── .github/
-│   └── workflows/
-│       └── ci.yml
+# 🐳 Docker
+
+Build image
+
+```bash
+docker build -t erp .
+```
+
+Run container
+
+```bash
+docker run -d -p 5000:5000 erp
+```
 
 ---
 
-# Future Improvements
+# 📈 Future Enhancements
 
-* Docker build automation in CI pipeline
-* Kubernetes deployment
-* Monitoring with Prometheus and Grafana
-* Cloud deployment on AWS
+- Kubernetes Deployment
+- Auto Scaling
+- Terraform Infrastructure
+- Jenkins Pipeline
+- Email Alerting
+- SSL (HTTPS)
+- RDS Database
+- CloudWatch Monitoring
+
+---
+
+# 👩‍💻 Author
+
+**Savitri Koparde**
+
+DevOps Intern
