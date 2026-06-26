@@ -99,6 +99,7 @@ Prometheus
 Grafana Dashboard
 
 ---
+# CI/CD FLOW
 
 ![CI/CD Flow](screenshots/cicd-flow.png)
 
@@ -206,7 +207,7 @@ Grafana visualizes them through dashboards.
 ## Prometheus Targets
 
 ![Prometheus](screenshots/prometheus-targets.png)
-![Uploading image.png…]()
+
 
 ---
 
@@ -219,28 +220,6 @@ Grafana alert rules were configured for:
 - High Disk Usage
 
 Alerts help administrators identify infrastructure issues before they affect application availability.
-
----
-
-```
-
----
-
----
-
-# 🐳 Docker
-
-Build image
-
-```bash
-docker build -t erp .
-```
-
-Run container
-
-```bash
-docker run -d -p 5000:5000 erp
-```
 
 ---
 
@@ -261,4 +240,4 @@ docker run -d -p 5000:5000 erp
 
 **Savitri Koparde**
 
-DevOps Intern
+DevOps Engineer
